@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Authcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,19 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//ruta login
+Route::post('/login',[Authcontroller::class,'login']);
+Route::post('/register',[Authcontroller::class,'register']);
+Route::post('/forgot',[Authcontroller::class,'forgot']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+//middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/estudiantes', [EstudiantesController::class, 'index']);
+    Route::get('/estudiantes/{id}', [EstudiantesController::class, 'show']);
+    Route::post('/estudiantes', [EstudiantesController::class, 'store']);
+    Route::put('/estudiantes/{id}', [EstudiantesController::class, 'update']);
+    Route::delete('/estudiantes/{id}', [EstudiantesController::class, 'destroy']);
+    // Salir de usuario logeado.
+    Route::get('/logout' , [Authcontroller::class, 'logout']);
 });
