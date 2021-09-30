@@ -21,6 +21,7 @@ class Authcontroller extends Controller
             'dni' => [new NifNie, 'required', 'string', 'max:255'],
             'remember_token' => ['required'],
         ]);
+        
         $remember = $credentials["remember_token"];
 
         unset($credentials["remember_token"]);
