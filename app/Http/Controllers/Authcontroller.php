@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Auth\Reminders\RemindableTrait;
+use Illuminate\Auth\Reminders\RemindableInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\NifNie;
+
 use Exception;
 
-class Authcontroller extends Controller
+class AuthController extends Controller
 {
     //validas los datos.
     public function login(Request $request)
@@ -21,12 +23,12 @@ class Authcontroller extends Controller
             'dni' => [new NifNie, 'required', 'string', 'max:255'],
             'remember_token' => ['required'],
         ]);
-        
+
         $remember = $credentials["remember_token"];
 
         unset($credentials["remember_token"]);
 
-        try {
+        
             //Verificar que el los datos de dni existe y que la contraseña es correcta
             if (Auth::attempt($credentials, $remember)) {
                 $usuarioLogeado = Auth::user();
@@ -37,14 +39,14 @@ class Authcontroller extends Controller
                     'token' => $token
                 ];
             } 
-        /* else {
+         else {
+             
             return ['error' => 'Error introduce de nuevos tus datos.'];
-        } */
-
-        } catch(Exception $e) {
-            return ['error' => $e];
-        }
-    }
+        } 
+        
+        } 
+            
+    
 
     //Registrar usuario
     public function register(Request $request)
@@ -85,16 +87,9 @@ class Authcontroller extends Controller
         return ['mensaje' => 'usuario desconectado.'];
     }
 
-    public function forgot(Request $request)
-    {
+ 
+   
+    
 
-        $credentials = $request->validate([
-
-            'password',
-            'email' => ['required'],
-        ]);
-        if (Auth::attempt([$credentials], $remember)) {
-            return ['mensaje' => 'usuario desconectado.'];
-        }
-    }
 }
+

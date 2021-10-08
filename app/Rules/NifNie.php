@@ -35,7 +35,7 @@ class NifNie implements Rule
      */
     public function message()
     {
-        return 'Debe ser un Nif o Nie válido y contener la letra mayuscula';
+        return 'Debe ser un Nif o Nie válido';
     }
 
     public function isValidNif($nif)
