@@ -3,56 +3,53 @@
 @if (! empty($greeting))
 # {{ $greeting }}
 @else
-@if ($level == 'error')
-# Whoops!
+@if ($level === 'error')
+# @lang('Whoops!')
 @else
-# Hello!
+# @lang('Hola! Restablece la contraseña')
+
+# @lang('')
 @endif
 @endif
 
-{{-- Intro Lines --}}
-@foreach ($introLines as $line)
-{{ $line }}
 
-@endforeach
 
 {{-- Action Button --}}
-@if (isset($actionText))
+# @lang('¿Has solicitado cambiar tu contraseña?. 
+si has sido tú, puedes ingresar una nueva contraseña si no ignora este mensaje.')
+@isset($actionText)
 <?php
     switch ($level) {
         case 'success':
-            $color = 'green';
-            break;
         case 'error':
-            $color = 'red';
+            $color = $level;
             break;
         default:
-            $color = 'blue';
+            $color = 'primary';
     }
+    
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])
 {{ $actionText }}
 @endcomponent
-@endif
+@endisset
 
-{{-- Outro Lines --}}
-@foreach ($outroLines as $line)
-{{ $line }}
 
-@endforeach
 
-<!-- Salutation -->
-@if (! empty($salutation))
-{{ $salutation }}
-@else
-Regards,<br>{{ config('app.name') }}
-@endif
 
-<!-- Subcopy -->
-@if (isset($actionText))
-@component('mail::subcopy')
-If you’re having trouble clicking the "{{ $actionText }}" button, copy and paste the URL below
-into your web browser: [{{ $actionUrl }}]({{ $actionUrl }})
-@endcomponent
-@endif
+
+
+
+{{-- Subcopy --}}
+@isset($actionText)
+@slot('subcopy')
+@lang(
+    "Si tienes cualquier fallo".
+    ' Puedes pegar este enlace en tu navegador. ',
+    [
+        'actionText' => $actionText,
+    ]
+) <span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
+@endslot
+@endisset
 @endcomponent
