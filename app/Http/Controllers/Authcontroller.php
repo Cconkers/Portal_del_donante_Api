@@ -88,16 +88,6 @@ class AuthController extends Controller
 
         ];
     }
-    public function show($id)
-    {
-        //buscar donante por id 
-        $donante = Donante::find($id);
-        //comprobar si el donante existe
-        if(!$donante){
-            return ['error' => 'Donante no encontrado'];
-        }
-        return ['datos' => $donante];
-    }
     //para cerrar de la sesión
     public function logout()
     {

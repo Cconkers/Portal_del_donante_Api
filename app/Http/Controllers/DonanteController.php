@@ -5,29 +5,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Donante;
+use Illuminate\Support\Facades\Auth;
 
 class DonanteController extends Controller
 {
-     //Validar datos 
-     public function store(Request $request)
-     {
-         $datos_validados = $request->validate([
-             'nombre' => 'required|min:3',
-             'email' => 'required',
-         ]);
-         //crear
-         Donante::create($datos_validados);
-         return ['mensaje' => 'Usuario creado'];
-     }
-     //mostrar un solo donante por id
-    public function show($id)
+    //mostrar un solo donante por id
+    public function show()
     {
         //buscar donante por id 
-        $estudiante = Donante::find($id);
+        $donante = Donante::where('NIFtitular', Auth::user()->NIFtitular)->get();
         //comprobar si el donante existe
-        if(!$estudiante){
+        if(!$donante){
             return ['error' => 'Donante no encontrado'];
         }
-        return ['datos' => $estudiante];
+        return ['datos' => $donante];
     }
 }

@@ -24,15 +24,13 @@ Route::post('/register',[Authcontroller::class,'register']);
 //manda un mensaje a tu correo para restablecer la contraseña
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']);
 //vista del mensaje
-Route::get('/donantes/{id}', [DonanteController::class, 'show']);
-   
+
 //recupera la contraseña
 Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
 //middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
-    Route::middleware('auth:sanctum')->group(function(){
-    
-    
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/perfil', [DonanteController::class, 'show']);
     
     // Salir de usuario logeado.
     Route::get('/logout' , [Authcontroller::class, 'logout']);
