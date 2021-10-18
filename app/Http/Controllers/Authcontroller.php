@@ -20,17 +20,16 @@ class AuthController extends Controller
         $credentials = $request->validate([
 
             'password' => ['required'],
-            'dni' => [new NifNie, 'required', 'string', 'max:255'],
-            'remember_token' => ['required'],
+            'documento' => ['required', 'string', 'max:255'],
         ]);
 
-        $remember = $credentials["remember_token"];
+        // $remember = $credentials["remember_token"];
 
-        unset($credentials["remember_token"]);
+        // unset($credentials["remember_token"]);
 
         
-            //Verificar que el los datos de dni existe y que la contraseña es correcta
-            if (Auth::attempt($credentials, $remember)) {
+            //Verificar que los datos de dni existe y que la contraseña es correcta
+            if (Auth::attempt($credentials)) {
                 $usuarioLogeado = Auth::user();
                 $token = $usuarioLogeado->createToken('TokenUsuario')->plainTextToken;
                 return [
@@ -54,19 +53,34 @@ class AuthController extends Controller
         //verificar
         $credentials = $request->validate([
             'name' => 'required',
-            // con el script de Nifnie.php le damos restinciones al dni.
-            'dni' => [new NifNie, 'required', 'string', 'max:255', 'unique:users,dni'],
+            'lastName'=>['required'],
+            // con el script de Nifnie.php le damos restricciones al dni.
+            'tipoDocumento'=> ['required'],
+            'documento' => ['required'],
+            'selectorPais'=>['required'],
+            'provincia'=> ['required'],
+            'poblacion'=> ['required'],
+            'cp'=>['required'],
+            'cuota'=> ['required'],
+            'tipoCuota'=> ['required'],
+            'phoneNumber'=>['required'],
+            'nameBank'=>['required'],
+            'iban'=> ['required'],
             'email' => ['required', 'email'],
             'password' => 'required',
             'confirm_password' => 'required|same:password',
-
         ]);
 
         // Encrypt password
-        $credentials['password'] = bcrypt($credentials['password']);
+        $request['password'] = bcrypt($request['password']);
+
+ 
+        if ($request['cuotaManual'] == null) {
+            $request['cuotaManual'] = "NO";
+        };
 
         //crear usuario
-        $usuarioCreado = User::create($credentials);
+        $usuarioCreado = User::create($request->all());
         //generar el token
         $token = $usuarioCreado->createToken('TokenUsuario')->plainTextToken;
         //devolver respuesta

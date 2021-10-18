@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -18,9 +19,21 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'dni',
+        'lastName',
         'email',
         'password',
+        'tipoDocumento',
+        'documento',
+        'selectorPais',
+        'provincia',
+        'poblacion',
+        'cp',
+        'cuotaManual',
+        'cuota',
+        'tipoCuota',
+        'phoneNumber',
+        'nameBank',
+        'iban',
     ];
 
     /**
