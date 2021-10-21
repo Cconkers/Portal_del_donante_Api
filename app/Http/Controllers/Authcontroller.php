@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\Reminders\RemindableInterface;
 use App\Models\User;
 use App\Models\Donantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\NifNie;
+use App\Models\Donante;
 
 use Exception;
 
@@ -21,12 +20,15 @@ class AuthController extends Controller
         $credentials = $request->validate([
 
             'password' => ['required'],
-            'documento' => ['required', 'string', 'max:255'],
+
+           
+            'documento' => [new NifNie,'required', 'string', 'max:255'],
         ]);
 
         // $remember = $credentials["remember_token"];
 
         // unset($credentials["remember_token"]);
+
 
         
             //Verificar que los datos de dni existe y que la contraseña es correcta
@@ -48,15 +50,17 @@ class AuthController extends Controller
             
     
 
+
     //Registrar usuario
     public function register(Request $request)
     {
         //verificar
         $credentials = $request->validate([
+
             'name' => ['required'],
             'lastName'=>['required'],
             'tipoDocumento'=> ['required'],
-            'documento' => ['required'],
+            'documento' => [new NifNie,'required','unique:users,documento'],
             'selectorPais'=>['required'],
             'provincia'=> ['required'],
             'poblacion'=> ['required'],
@@ -69,6 +73,7 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => 'required',
             'confirm_password' => 'required|same:password',
+
         ]);
 
         // Encrypt password
@@ -79,6 +84,7 @@ class AuthController extends Controller
             $request['cuotaManual'] = "NO";
         };
 
+
         //crear usuario
         $usuarioCreado = User::create(
             $request->only('documento', 'tipoDocumento', 'email', 'password','estado')
@@ -86,6 +92,7 @@ class AuthController extends Controller
          Donantes::create(
             array_merge($request->except( 'documento', 'tipoDocumento', 'email', 'password', 'estado'), [ 'user_id' => $usuarioCreado->id])
          );
+
 
         //generar el token
         $token = $usuarioCreado->createToken('TokenUsuario')->plainTextToken;
@@ -107,10 +114,4 @@ class AuthController extends Controller
         $usuarioLogeado->tokens()->delete();
         return ['mensaje' => 'usuario desconectado.'];
     }
-
- 
-   
-    
-
 }
-

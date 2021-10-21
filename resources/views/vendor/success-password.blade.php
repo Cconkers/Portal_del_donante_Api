@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Recuperar Contraseña</title>
+    <title>Has cambiado la contraseña.</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -63,17 +63,7 @@
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
-    <form class="form-container" action="/api/reset-password-token" method="POST">
-        <h2>¿Has olvidado tu contraseña?</h2>
 
-        <input name="email" placeholder="Enter email" value="{{request()->get('email')}}">
-        <input name="password" placeholder="Introduce tu contraseña">
-        <input name="password_confirmation" placeholder="Confirma tu contraseña">
-        <input hidden name="token" placeholder="token" value="{{request()->get('token')}}">
-
-        <button type="submit">Enviar</button>
-    </form>
 </div>
 </body>
 </html>
