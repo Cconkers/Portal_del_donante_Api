@@ -22,7 +22,7 @@ use App\Mail\ResetPasswordNotification;
 
 //ruta login
 Route::post('/login',[Authcontroller::class,'login']);
-Route::post('/register',[Authcontroller::class,'register']);
+Route::post('/register',[Authcontroller::class,'register'])->middleware('api');
 //manda un mensaje a tu correo para restablecer la contraseña
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']);
 //vista del mensaje

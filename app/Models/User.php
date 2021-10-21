@@ -17,10 +17,12 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'NombreColaborador',
-        'NIFtitular',
-        'EMail',
+
+        'email',
         'password',
+        'tipoDocumento',
+        'documento',
+        'password'
     ];
 
     /**
@@ -41,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $with = ['donante'];
+
+    public function donante()
+    {
+        return $this->hasOne(Donantes::class);
+    }
+   
 }
