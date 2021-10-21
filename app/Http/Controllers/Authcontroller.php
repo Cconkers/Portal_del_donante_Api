@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use App\Models\User;
+use App\Models\Donantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\NifNie;
@@ -52,9 +53,8 @@ class AuthController extends Controller
     {
         //verificar
         $credentials = $request->validate([
-            'name' => 'required',
+            'name' => ['required'],
             'lastName'=>['required'],
-            // con el script de Nifnie.php le damos restricciones al dni.
             'tipoDocumento'=> ['required'],
             'documento' => ['required'],
             'selectorPais'=>['required'],
@@ -80,9 +80,16 @@ class AuthController extends Controller
         };
 
         //crear usuario
-        $usuarioCreado = User::create($request->all());
+        $usuarioCreado = User::create(
+            $request->only('documento', 'tipoDocumento', 'email', 'password','estado')
+        );
+         Donantes::create(
+            array_merge($request->except( 'documento', 'tipoDocumento', 'email', 'password', 'estado'), [ 'user_id' => $usuarioCreado->id])
+         );
+
         //generar el token
         $token = $usuarioCreado->createToken('TokenUsuario')->plainTextToken;
+
         //devolver respuesta
         return [
             'mensaje' => 'usuario registrado',

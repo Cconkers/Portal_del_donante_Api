@@ -18,15 +18,18 @@ class CreateDonantesTable extends Migration
             $table->unsignedbigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
-            $table->string('lasName');
+            $table->string('lastName');
             $table->string('selectorPais');
             $table->string('provincia');
             $table->string('poblacion');
             $table->string('cp');
             $table->integer('cuota');
             $table->string('tipoCuota');
-            $table->date('created_at');
+            $table->string('cuotaManual');
             $table->string('phoneNumber');
+            $table->string('nameBank');
+            $table->string('iban');
+            $table->timestamps();
         });
     }
 
