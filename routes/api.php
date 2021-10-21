@@ -6,6 +6,7 @@ use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\DonanteController;
+use App\Http\Controllers\AdminController;
 use App\Mail\ResetPasswordNotification;
 
 /*
@@ -18,6 +19,7 @@ use App\Mail\ResetPasswordNotification;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 //ruta login
 Route::post('/login',[Authcontroller::class,'login']);
 Route::post('/register',[Authcontroller::class,'register']);
@@ -31,7 +33,10 @@ Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitRe
 //middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/perfil', [DonanteController::class, 'show']);
-    
+  
     // Salir de usuario logeado.
     Route::get('/logout' , [Authcontroller::class, 'logout']);
+});
+Route::group(['middleware' => ['auth:sanctum','admin']], function () {
+    Route::get('/donantes', [AdminController::class, 'index']);
 });

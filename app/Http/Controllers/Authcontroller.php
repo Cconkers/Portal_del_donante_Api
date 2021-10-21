@@ -20,7 +20,7 @@ class AuthController extends Controller
 
             'password' => ['required'],
             'NIFtitular' => [new NifNie, 'required', 'string', 'max:255'],
-            'remember_token' => ['required'],
+           
         ]);
 
         $remember = $credentials["remember_token"];
@@ -58,11 +58,11 @@ class AuthController extends Controller
             'password' => 'required',
             'confirm_password' => 'required|same:password',
             'localidad' => 'required',
-            'Cdigo_Postal' => 'required',
+            'Codigo_Postal' => 'required',
             'Cuota'  => 'required',
-            'Mvil' => 'required',
+            'Movil' => 'required',
             'telefono2' => 'required',
-            'preriocidad'
+            
             
         ]);
 
