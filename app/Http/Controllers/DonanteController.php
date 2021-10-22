@@ -13,7 +13,7 @@ class DonanteController extends Controller
     public function show()
     {
         //buscar donante por dni 
-        $donante = Donante::where('NIFtitular', Auth::user()->NIFtitular)->get();
+        $donante = Donante::where('documento', Auth::user()->documento)->get();
         //comprobar si el donante existe
         if(!$donante){
             return ['error' => 'Donante no encontrado'];
