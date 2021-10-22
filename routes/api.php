@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordNotification;
 
@@ -26,6 +27,12 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::view('/forgot_password', 'reset_password_form')->name('password.reset');
 //recupera la contraseña
 Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitResetPasswordForm']);
+
+
+Route::get('/upload-file', [FileUploadController::class, 'createForm']);
+
+Route::post('/upload-file', [FileUploadController::class, 'fileUpload'])->name('fileUpload');
+
 
 //middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
 Route::middleware('auth:sanctum')->group(function(){

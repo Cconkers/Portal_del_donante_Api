@@ -17,5 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
