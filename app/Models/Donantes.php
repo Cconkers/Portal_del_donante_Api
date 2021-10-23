@@ -18,6 +18,7 @@ class Donantes extends Model
         'user_id',
         'name',
         'lastName',
+        'direccion',
         'selectorPais',
         'provincia',
         'poblacion',
@@ -26,6 +27,7 @@ class Donantes extends Model
         'cuota',
         'tipoCuota',
         'phoneNumber',
+        'phoneNumber2',
         'nameBank',
         'iban',
     ];

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Events\ComunicadoStatusEvent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/fire', function () {
+    event(new ComunicadoStatusEvent);
+    return 'Fired';
 });
 
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');

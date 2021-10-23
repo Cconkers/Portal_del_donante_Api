@@ -22,11 +22,13 @@ class CreateDonantesTable extends Migration
             $table->string('selectorPais');
             $table->string('provincia');
             $table->string('poblacion');
+            $table->string('direccion');
             $table->string('cp');
             $table->integer('cuota');
             $table->string('tipoCuota');
             $table->string('cuotaManual');
             $table->string('phoneNumber');
+            $table->string('phoneNumber2');
             $table->string('nameBank');
             $table->string('iban');
             $table->timestamps();

@@ -40,11 +40,9 @@ class AuthController extends Controller
                 ];
             } 
          else {
-             
-            return ['error' => 'Error introduce de nuevos tus datos.'];
+            return response()->json(["Error" => "Datos de login incorrectos"], 401);
         } 
-        
-        } 
+    } 
             
     
 
@@ -58,12 +56,14 @@ class AuthController extends Controller
             'tipoDocumento'=> ['required'],
             'documento' => ['required'],
             'selectorPais'=>['required'],
+            'direccion'=>['required'],
             'provincia'=> ['required'],
             'poblacion'=> ['required'],
             'cp'=>['required'],
             'cuota'=> ['required'],
             'tipoCuota'=> ['required'],
             'phoneNumber'=>['required'],
+            'phoneNumber2'=>['required'],
             'nameBank'=>['required'],
             'iban'=> ['required'],
             'email' => ['required', 'email'],
