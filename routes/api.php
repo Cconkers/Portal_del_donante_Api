@@ -39,4 +39,5 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::group(['middleware' => ['auth:sanctum','admin']], function () {
     Route::get('/donantes', [AdminController::class, 'index']);
+    Route::get('/donantes/{id}', [EstudiantesController::class, 'show']);
 });
