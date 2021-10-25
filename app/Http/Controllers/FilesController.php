@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comunicado;
 use Illuminate\Http\Request;
-use App\Models\File;
 
-class FileUploadController extends Controller
+
+class FilesController extends Controller
 {
-  public function createForm(){
-    return view('file-upload');
-  }
-
   public function fileUpload(Request $req){
         $req->validate([
         'file' => 'required|mimes:pdf'
         ]);
 
-        $fileModel = new File;
+        $fileModel = new Comunicado();
 
         if($req->file()) {
             $fileName = time().'_'.$req->file->getClientOriginalName();
@@ -32,5 +29,13 @@ class FileUploadController extends Controller
             ]);
         }
    }
+
+
+  public function fileDownload(Request $req){
+    
+        return response()->file('..\storage\app\public\uploads\1635160731_RubenCvDevelop.pdf');
+  }
+
+
 
 }

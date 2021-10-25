@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\FilesController;
+use App\Http\Controllers\ComunicadosController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordNotification;
 
@@ -29,13 +30,18 @@ Route::view('/forgot_password', 'reset_password_form')->name('password.reset');
 Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
 
-Route::get('/upload-file', [FileUploadController::class, 'createForm']);
+Route::get('/download-file', [FilesController::class, 'fileDownload']);
 
-Route::post('/upload-file', [FileUploadController::class, 'fileUpload'])->name('fileUpload');
+
+
+Route::get('/comunicados/{id}', [ComunicadosController::class, 'show']);
+
+Route::post('/upload-file', [FilesController::class, 'fileUpload'])->name('fileUpload');
 
 
 //middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
 Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/comunicados', [ComunicadosController::class, 'index']);
     Route::get('/estudiantes', [EstudiantesController::class, 'index']);
     Route::get('/estudiantes/{id}', [EstudiantesController::class, 'show']);
     Route::post('/estudiantes', [EstudiantesController::class, 'store']);
