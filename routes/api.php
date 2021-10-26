@@ -39,4 +39,6 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::group(['middleware' => ['auth:sanctum','admin']], function () {
     Route::get('/donantes', [AdminController::class, 'index']);
+    Route::post('/donantes/byDocument', [AdminController::class, 'getdonante']);
+    
 });

@@ -7,7 +7,7 @@ use App\Models\Donantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\NifNie;
-use App\Models\Donante;
+
 
 use Exception;
 
