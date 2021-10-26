@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function index()
     {
         //trae todos los usuarios menos el de este documento.
-        $donantes = User::where('documento', '!=',  Auth::user()->documento)->get()->pluck("donante");
+        $donantes = User::where('documento', '!=',  Auth::user()->documento)->get();
         return $donantes;
     }
     public function getdonante(Request $request)
