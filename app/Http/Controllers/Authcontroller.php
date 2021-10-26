@@ -20,10 +20,17 @@ class AuthController extends Controller
         $credentials = $request->validate([
 
             'password' => ['required'],
+
+           
             'documento' => [new NifNie,'required', 'string', 'max:255'],
         ]);
 
-       
+        // $remember = $credentials["remember_token"];
+
+        // unset($credentials["remember_token"]);
+
+
+        
             //Verificar que los datos de dni existe y que la contraseña es correcta
             if (Auth::attempt($credentials)) {
                 $usuarioLogeado = Auth::user();
@@ -36,7 +43,7 @@ class AuthController extends Controller
             } 
          else {
              
-            return ['error'=>'Unauthorised'];
+            return ['error' => 'Error introduce de nuevos tus datos.'];
         } 
         
         } 
