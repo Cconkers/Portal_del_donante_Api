@@ -29,13 +29,4 @@ class FilesController extends Controller
             ]);
         }
    }
-
-
-  public function fileDownload(Request $req){
-    
-        return response()->file('..\storage\app\public\uploads\1635160731_RubenCvDevelop.pdf');
-  }
-
-
-
 }
