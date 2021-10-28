@@ -44,9 +44,17 @@ class AuthController extends Controller
             return response()->json(["Error" => "Datos de login incorrectos"], 401);
         } 
     } 
-            
-    
+    public function refreshUser()
+    {
 
+        return response()->json([
+
+            'usuario' => Auth::user()
+        ]);
+        
+         
+    }
+            
     //Registrar usuario
     public function register(Request $request)
     {
@@ -55,7 +63,7 @@ class AuthController extends Controller
             'name' => ['required'],
             'lastName'=>['required'],
             'tipoDocumento'=> ['required'],
-            'documento' => ['required'],
+            'documento' => ['required', 'unique:users,documento'],
             'selectorPais'=>['required'],
             'direccion'=>['required'],
             'provincia'=> ['required'],
@@ -67,7 +75,7 @@ class AuthController extends Controller
             'phoneNumber2'=>['required'],
             'nameBank'=>['required'],
             'iban'=> ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email'], 
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ]);
@@ -80,24 +88,25 @@ class AuthController extends Controller
             $request['cuotaManual'] = "NO";
         };
 
-        Mail::send(new RegisterMail($credentials));
+     
 
         //crear usuario
         $usuarioCreado = User::create(
             $request->only('documento', 'tipoDocumento', 'email', 'password','estado')
         );
          Donantes::create(
-            array_merge($request->except( 'documento', 'tipoDocumento', 'email', 'password', 'estado'), [ 'user_id' => $usuarioCreado->id])
+            array_merge($request->except( 'nameBank', 'iban','documento', 'tipoDocumento', 'email', 'password', 'estado'), [ 'user_id' => $usuarioCreado->id])
          );
 
         //generar el token
         $token = $usuarioCreado->createToken('TokenUsuario')->plainTextToken;
 
+        Mail::send(new RegisterMail($credentials));
         //devolver respuesta
         return [
             'mensaje' => 'usuario registrado',
 
-            'usuario' => $usuarioCreado,
+            'usuario' => $usuarioCreado->fresh(),
 
             'token' => $token
 

@@ -16,10 +16,10 @@ Hola **Administrador**, {{-- use double space for line break --}}
 **Nombre del banco:** {{ $nameBank }}  
 **IBAN:** {{ $iban }}  
 
-Click below to start working right now }}  
-@component('mail::button', ['url' => 'www.fundaciondonbosco.es' ])
-Go to your inbox
+Click en el botón para aceder al listado de donantes y aprobar su cuenta }}  
+@component('mail::button', ['url' => 'http://localhost:8080/buscardonantes' ])
+Listado de Donantes
 @endcomponent
-Sincerely,
-Mailtrap team.
+Un saludo,
+coders de Don Bosco
 @endcomponent

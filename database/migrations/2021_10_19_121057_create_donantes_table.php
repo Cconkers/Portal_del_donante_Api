@@ -29,8 +29,6 @@ class CreateDonantesTable extends Migration
             $table->string('cuotaManual');
             $table->string('phoneNumber');
             $table->string('phoneNumber2');
-            $table->string('nameBank');
-            $table->string('iban');
             $table->timestamps();
         });
     }

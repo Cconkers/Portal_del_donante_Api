@@ -31,25 +31,25 @@ class RegisterMail extends Mailable
     public function build()
     {
         return $this->from($this->data['email'])
-                    ->to('admin@fundacion.es')
-                       ->subject('Registro de usuario nuevo')
-                       ->markdown('mails.registro')
-                       ->with([
-                        'name' => $this->data['name'],
-                        'lastName'=>$this->data['lastName'],
-                        'tipoDocumento'=> $this->data['tipoDocumento'],
-                        'documento' => $this->data['documento'],
-                        'selectorPais'=>$this->data['selectorPais'],
-                        'direccion'=>$this->data['direccion'],
-                        'provincia'=> $this->data['provincia'],
-                        'poblacion'=> $this->data['poblacion'],
-                        'cp'=>$this->data['cp'],
-                        'cuota'=> $this->data['cuota'],
-                        'tipoCuota'=> $this->data['tipoCuota'],
-                        'phoneNumber'=>$this->data['phoneNumber'],
-                        'phoneNumber2'=>$this->data['phoneNumber2'],
-                        'nameBank'=>$this->data['nameBank'],
-                        'iban'=> $this->data['iban'],
-                      ]);
+            ->to('admin@fundacion.es')
+            ->subject('Registro de usuario nuevo')
+            ->markdown('mails.registro')
+            ->with([
+                'name' => $this->data['name'],
+                'lastName' => $this->data['lastName'],
+                'tipoDocumento' => $this->data['tipoDocumento'],
+                'documento' => $this->data['documento'],
+                'selectorPais' => $this->data['selectorPais'],
+                'direccion' => $this->data['direccion'],
+                'provincia' => $this->data['provincia'],
+                'poblacion' => $this->data['poblacion'],
+                'cp' => $this->data['cp'],
+                'cuota' => $this->data['cuota'],
+                'tipoCuota' => $this->data['tipoCuota'],
+                'phoneNumber' => $this->data['phoneNumber'],
+                'phoneNumber2' => $this->data['phoneNumber2'],
+                'nameBank' => $this->data['nameBank'],
+                'iban' => $this->data['iban'],
+            ]);
     }
 }

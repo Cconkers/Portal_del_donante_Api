@@ -20,8 +20,8 @@ use App\Mail\ResetPasswordNotification;
 |
 */
 //ruta login
-Route::post('/login',[Authcontroller::class,'login']);
-Route::post('/register',[Authcontroller::class,'register'])->middleware('api');
+Route::post('/login', [Authcontroller::class, 'login']);
+Route::post('/register', [Authcontroller::class, 'register'])->middleware('api');
 //manda un mensaje a tu correo para restablecer la contraseña
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']);
 //vista del mensaje
@@ -30,23 +30,16 @@ Route::view('/forgot_password', 'reset_password_form')->name('password.reset');
 Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
 
-Route::get('/download-file', [FilesController::class, 'fileDownload']);
-
-
-
-Route::get('/comunicados/{id}', [ComunicadosController::class, 'show']);
-
-Route::post('/upload-file', [FilesController::class, 'fileUpload'])->name('fileUpload');
 
 
 //middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
-Route::middleware('auth:sanctum')->group(function(){
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['middleware' => 'admin'], function () {
+        Route::post('/upload-file', [FilesController::class, 'fileUpload'])->name('fileUpload');
+    });
+    Route::get('/comunicados/{id}', [ComunicadosController::class, 'show']);
+    Route::get('/refresh', [Authcontroller::class, 'refreshUser']);
     Route::get('/comunicados', [ComunicadosController::class, 'index']);
-    Route::get('/estudiantes', [EstudiantesController::class, 'index']);
-    Route::get('/estudiantes/{id}', [EstudiantesController::class, 'show']);
-    Route::post('/estudiantes', [EstudiantesController::class, 'store']);
-    Route::put('/estudiantes/{id}', [EstudiantesController::class, 'update']);
-    Route::delete('/estudiantes/{id}', [EstudiantesController::class, 'destroy']);
     // Salir de usuario logeado.
-    Route::get('/logout' , [Authcontroller::class, 'logout']);
+    Route::get('/logout', [Authcontroller::class, 'logout']);
 });
