@@ -18,9 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 Route::get('/fire', function () {
     event(new ComunicadoStatusEvent);
     return 'Fired';
 });
 
+=======
+Route::view('/forgot_password', 'reset_password_form')->name('password.reset');
+>>>>>>> listdonante
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');

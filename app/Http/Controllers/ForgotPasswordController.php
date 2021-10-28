@@ -59,5 +59,7 @@ class ForgotPasswordController extends Controller
         }
 
         return response()->json(["msg" => "La contraseña se ha cambiado correctamente"]);
+       
+
     }
 }
