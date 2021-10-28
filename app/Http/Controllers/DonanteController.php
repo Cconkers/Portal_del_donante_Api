@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-use App\Models\Donante;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+//use App\Models\Donantes;
 
 class DonanteController extends Controller
 {
-    //mostrar un solo donante por dni
-    public function show()
+    public function requestDonantessInfo(Request $request, $id)
     {
-        //buscar donante por dni 
-        $donante = Donante::where('documento', Auth::user()->documento)->get();
-        //comprobar si el donante existe
-        if(!$donante){
-            return ['error' => 'Donante no encontrado'];
+        $credentials = $request->validate([
+            'details' => 'required',
+        ]);
+
+        if (auth()->check() && auth()->user()->id == $id) {
+            $users = DB::table('RequestDonantes')->insert([
+                ['user_id' => $id, 'details' => $credentials['details'], 'status' => 0]
+            ]);
+
+            return response()->json(["msg" => "Solicitud enviada."], 200);
+        } else {
+            return response()->json(["msg" => "No autorizado."], 401);
         }
-        return ['datos' => $donante];
     }
 }

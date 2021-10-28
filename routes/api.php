@@ -7,6 +7,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\DonanteController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PeticionesController;
 use App\Mail\ResetPasswordNotification;
 
 /*
@@ -33,12 +34,13 @@ Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitRe
 //middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/perfil', [DonanteController::class, 'show']);
-  
+    Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonanteInfo']);
     // Salir de usuario logeado.
     Route::get('/logout' , [Authcontroller::class, 'logout']);
 });
 Route::group(['middleware' => ['auth:sanctum','admin']], function () {
     Route::get('/donantes', [AdminController::class, 'index']);
-    Route::post('/donantes/byDocument', [AdminController::class, 'getdonante']);
+    Route::post('/donantes/byDocument', [AdminController::class, 'getDonante']);
+    Route::get('/donantes/request', [AdminController::class, 'getPendingRequest']); 
     
 });
