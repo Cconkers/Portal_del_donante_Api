@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use App\Models\Comunicado;
 use Illuminate\Http\Request;
-
+use App\Mail\ComunicadosMail;
 
 class FilesController extends Controller
 {
@@ -23,6 +24,7 @@ class FilesController extends Controller
             $fileModel->file_path = '/storage/' . $filePath;
             $fileModel->save();
 
+            Mail::send(new ComunicadosMail());
             return response()->json([
                 'message' => 'El archivo ha sido subido correctamente',
                 'file', $fileName

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegisterMail;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use App\Models\User;
@@ -9,7 +10,7 @@ use App\Models\Donantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\NifNie;
-
+use Illuminate\Support\Facades\Mail;
 use Exception;
 
 class AuthController extends Controller
@@ -78,6 +79,8 @@ class AuthController extends Controller
         if ($request['cuotaManual'] == null) {
             $request['cuotaManual'] = "NO";
         };
+
+        Mail::send(new RegisterMail($credentials));
 
         //crear usuario
         $usuarioCreado = User::create(
