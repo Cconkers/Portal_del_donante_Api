@@ -7,6 +7,9 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\ComunicadosController;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\DonanteController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PeticionesController;
 use App\Mail\ResetPasswordNotification;
 
 /*
@@ -19,13 +22,14 @@ use App\Mail\ResetPasswordNotification;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 //ruta login
 Route::post('/login', [Authcontroller::class, 'login']);
 Route::post('/register', [Authcontroller::class, 'register'])->middleware('api');
 //manda un mensaje a tu correo para restablecer la contraseña
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']);
 //vista del mensaje
-Route::view('/forgot_password', 'reset_password_form')->name('password.reset');
+
 //recupera la contraseña
 Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
@@ -36,8 +40,13 @@ Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitRe
 Route::middleware('auth:sanctum')->group(function () {
     Route::group(['middleware' => 'admin'], function () {
         Route::post('/upload-file', [FilesController::class, 'fileUpload'])->name('fileUpload');
+        Route::get('/donantes', [AdminController::class, 'index']);
+        Route::post('/donantes/byDocument', [AdminController::class, 'getDonante']);
+        Route::get('/donantes/request', [AdminController::class, 'getPendingRequest']); 
     });
     Route::get('/comunicados/{id}', [ComunicadosController::class, 'show']);
+    Route::get('/perfil', [DonanteController::class, 'show']);
+    Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonanteInfo']);
     Route::get('/refresh', [Authcontroller::class, 'refreshUser']);
     Route::get('/comunicados', [ComunicadosController::class, 'index']);
     // Salir de usuario logeado.

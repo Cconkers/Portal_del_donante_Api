@@ -22,7 +22,9 @@ class AuthController extends Controller
         $credentials = $request->validate([
 
             'password' => ['required'],
-            'documento' => ['required', 'string', 'max:255'],
+
+           
+            'documento' => [new NifNie,'required', 'string', 'max:255'],
         ]);
 
         // $remember = $credentials["remember_token"];
@@ -52,11 +54,13 @@ class AuthController extends Controller
         ]);
     }
 
+
     //Registrar usuario
     public function register(Request $request)
     {
         //verificar
         $credentials = $request->validate([
+
             'name' => ['required'],
             'lastName' => ['required'],
             'tipoDocumento' => ['required'],
@@ -75,6 +79,7 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => 'required',
             'confirm_password' => 'required|same:password',
+
         ]);
 
         // Encrypt password
@@ -86,7 +91,6 @@ class AuthController extends Controller
         };
 
 
-
         //crear usuario
         $usuarioCreado = User::create(
             $request->only('documento', 'tipoDocumento', 'email', 'password', 'estado')
@@ -94,6 +98,7 @@ class AuthController extends Controller
         Donantes::create(
             array_merge($request->except('nameBank', 'iban', 'documento', 'tipoDocumento', 'email', 'password', 'estado'), ['user_id' => $usuarioCreado->id])
         );
+
 
         //generar el token
         $token = $usuarioCreado->createToken('TokenUsuario')->plainTextToken;
