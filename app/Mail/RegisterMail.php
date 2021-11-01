@@ -31,8 +31,8 @@ class RegisterMail extends Mailable
     public function build()
     {
         return $this->from($this->data['email'])
-            ->to('admin@fundacion.es')
-            ->subject('Registro de usuario nuevo')
+            ->to('benrupv_13@hotmail.com')
+            ->subject('Petición de registro de ' . $this->data['name'] . ' con ' . $this->data['tipoDocumento'] . ': ' . $this->data['documento'])
             ->markdown('mails.registro')
             ->with([
                 'name' => $this->data['name'],

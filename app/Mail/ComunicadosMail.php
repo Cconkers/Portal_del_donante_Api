@@ -18,7 +18,7 @@ class ComunicadosMail extends Mailable
      */
     public function __construct()
     {
-        //
+
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\RegisterMail;
+use App\Mail\EmailConfirmation;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use App\Models\User;
@@ -104,6 +105,7 @@ class AuthController extends Controller
         $token = $usuarioCreado->createToken('TokenUsuario')->plainTextToken;
 
         Mail::send(new RegisterMail($credentials));
+        Mail::send(new EmailConfirmation($credentials));
         //devolver respuesta
         return [
             'mensaje' => 'usuario registrado',

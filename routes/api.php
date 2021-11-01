@@ -28,6 +28,7 @@ Route::post('/login', [Authcontroller::class, 'login']);
 Route::post('/register', [Authcontroller::class, 'register'])->middleware('api');
 //manda un mensaje a tu correo para restablecer la contraseña
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']);
+Route::get('/confirm-email',[DonanteController::class, 'confirmEmail']);
 //vista del mensaje
 
 //recupera la contraseña

@@ -1,5 +1,5 @@
 @component('mail::message')
-Hola **Administrador**, {{-- use double space for line break --}}  
+**Petición de registro de nuevo usuario:** {{-- use double space for line break --}}  
 **Nombre:** {{$name}}  
 **Apellido:** {{ $lastName }}  
 **Tipo de documento:** {{ $tipoDocumento }}  
@@ -16,7 +16,7 @@ Hola **Administrador**, {{-- use double space for line break --}}
 **Nombre del banco:** {{ $nameBank }}  
 **IBAN:** {{ $iban }}  
 
-Click en el botón para aceder al listado de donantes y aprobar su cuenta }}  
+Click en el botón para aceder al listado de donantes y aprobar su cuenta
 @component('mail::button', ['url' => 'http://localhost:8080/buscardonantes' ])
 Listado de Donantes
 @endcomponent

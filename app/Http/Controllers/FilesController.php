@@ -25,6 +25,7 @@ class FilesController extends Controller
             $fileModel->save();
 
             Mail::send(new ComunicadosMail());
+            
             return response()->json([
                 'message' => 'El archivo ha sido subido correctamente',
                 'file', $fileName
