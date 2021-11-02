@@ -24,8 +24,8 @@ class AuthController extends Controller
 
             'password' => ['required'],
 
-           
-            'documento' => [new NifNie,'required', 'string', 'max:255'],
+
+            'documento' => [new NifNie, 'required', 'string', 'max:255'],
         ]);
 
         // $remember = $credentials["remember_token"];
@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         //Verificar que los datos de dni existe y que la contraseña es correcta
         if (Auth::attempt($credentials)) {
-            $usuarioLogeado = Auth::user();
+            $usuarioLogeado = Auth::user(['verify' => true]);
             $token = $usuarioLogeado->createToken('TokenUsuario')->plainTextToken;
             return [
                 'mensaje' => 'se ha logeado correctamente',
@@ -51,7 +51,7 @@ class AuthController extends Controller
 
         return response()->json([
 
-            'usuario' => Auth::user()
+            'usuario' => Auth::user(['verify' => true])
         ]);
     }
 
@@ -103,7 +103,7 @@ class AuthController extends Controller
 
         //generar el token
         $token = $usuarioCreado->createToken('TokenUsuario')->plainTextToken;
-
+        $credentials['id'] = $usuarioCreado->id;
         Mail::send(new RegisterMail($credentials));
         Mail::send(new EmailConfirmation($credentials));
         //devolver respuesta
@@ -119,7 +119,7 @@ class AuthController extends Controller
     //para cerrar de la sesión
     public function logout()
     {
-        $usuarioLogeado = Auth::user();
+        $usuarioLogeado = Auth::user(['verify' => true]);
         $usuarioLogeado->tokens()->delete();
         return ['mensaje' => 'usuario desconectado.'];
     }

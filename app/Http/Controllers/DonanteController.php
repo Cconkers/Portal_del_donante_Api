@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //use App\Models\Donantes;
@@ -24,11 +25,11 @@ class DonanteController extends Controller
             return response()->json(["msg" => "No autorizado."], 401);
         }
     }
-    public function confirmEmail(Request $data)
+    public function confirmEmail(Request $request, $id)
     {
-            return response()->json([
-           'email' => $data
-       ]);
-
-     }
+        $resource = User::findOrFail($id);
+        $resource->fill(['email_verified_at' => now()]);
+        $resource->save();
+        return response()->json(["msg" => "Email verificado."], 200);
+    }
 }

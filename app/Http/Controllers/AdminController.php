@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function index()
     {
         //trae todos los usuarios menos el de este documento.
-        $donantes = User::where('documento', '!=',  Auth::user()->documento)->get();
+        $donantes = User::where('documento', '!=',  Auth::user(['verify' => true])->documento)->get();
         return $donantes;
     }
     public function getDonante(Request $request)

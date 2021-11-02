@@ -11,6 +11,7 @@ use App\Http\Controllers\DonanteController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PeticionesController;
 use App\Mail\ResetPasswordNotification;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +26,20 @@ use App\Mail\ResetPasswordNotification;
 
 //ruta login
 Route::post('/login', [Authcontroller::class, 'login']);
-Route::post('/register', [Authcontroller::class, 'register'])->middleware('api');
+Route::post('/register', [Authcontroller::class, 'register'], [RegisterController::class,])->middleware('api');
 //manda un mensaje a tu correo para restablecer la contraseña
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']);
-Route::get('/confirm-email',[DonanteController::class, 'confirmEmail']);
-//vista del mensaje
+
+//Confirmación del correo electrónico
+Route::get('/confirm-email/{id}', [DonanteController::class, 'confirmEmail']);
+
 
 //recupera la contraseña
 Route::post('/reset-password-token', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 
 

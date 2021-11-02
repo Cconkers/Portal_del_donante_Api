@@ -37,7 +37,8 @@ class EmailConfirmation extends Mailable
         ->with([
             'name' => $this->data['name'],
             'lastName' => $this->data['lastName'],
-            'email' => $this->data['email']
+            'email' => $this->data['email'],
+            'id' => $this->data['id']
         ]);
     }
 }
