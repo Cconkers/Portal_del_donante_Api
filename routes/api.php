@@ -53,13 +53,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/comunicados/{id}', [ComunicadosController::class, 'show']);
     Route::get('/perfil', [DonanteController::class, 'show']);
-<<<<<<< HEAD
-    Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonantesInfo']);
-=======
     Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonanteInfo']);
     Route::get('/refresh', [Authcontroller::class, 'refreshUser']);
     Route::get('/comunicados', [ComunicadosController::class, 'index']);
->>>>>>> 55f0460c1bcc351d1e01eddc4d1aec5c6d5a2cd8
     // Salir de usuario logeado.
     Route::get('/logout', [Authcontroller::class, 'logout']);
 });
