@@ -53,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/comunicados/{id}', [ComunicadosController::class, 'show']);
     Route::get('/perfil', [DonanteController::class, 'show']);
-    Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonanteInfo']);
+    Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonantesInfo']);
     Route::get('/refresh', [Authcontroller::class, 'refreshUser']);
     Route::get('/comunicados', [ComunicadosController::class, 'index']);
     // Salir de usuario logeado.

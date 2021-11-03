@@ -16,7 +16,7 @@ class DonanteController extends Controller
         ]);
 
         if (auth()->check() && auth()->user()->id == $id) {
-            $users = DB::table('RequestDonantes')->insert([
+            $users = DB::table('requestDonantes')->insert([
                 ['user_id' => $id, 'details' => $credentials['details'], 'status' => 0]
             ]);
 
