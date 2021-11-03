@@ -15,11 +15,13 @@ class AdminMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    { 
+    public function handle(Request $request, Closure $next)
+    {
         if (auth()->check() && auth()->user()->is_admin)
             return $next($request);
-    
-        return redirect('/api/login');
+
+        return response()->json([
+            'is_admin' => false
+        ]);
     }
 }

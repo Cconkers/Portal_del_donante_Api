@@ -16,7 +16,7 @@
 
 {{-- Action Button --}}
 # @lang('¿Has solicitado cambiar tu contraseña?. 
-si has sido tú, puedes ingresar una nueva contraseña si no ignora este mensaje.')
+Si no has sido tú, por favor ignora este mensaje.')
 @isset($actionText)
 <?php
     switch ($level) {
