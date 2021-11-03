@@ -19,18 +19,16 @@ class ForgotPasswordController extends Controller
      *
      * @return response()
      */
-   
+
     //función para mandar un mensaje al correo para restablecer password
     public function submitForgetPasswordForm(Request $request)
-      
+
     {
         $request->validate(['email' => 'required|email']);
-       
+
         Password::sendResetLink(
-           $request->only('email')
+            $request->only('email')
         );
-
-
         return response()->json(["msg" => 'se ha enviado un mensaje a tu correo para restablecer la contraseña.']);
     }
 
@@ -40,7 +38,8 @@ class ForgotPasswordController extends Controller
      * @return response()
      */
     // Resetea la contraseña.
-    public function submitResetPasswordForm() {
+    public function submitResetPasswordForm()
+    {
         $credentials = request()->validate([
             'email' => 'required|email',
             'token' => 'required|string',
@@ -49,17 +48,15 @@ class ForgotPasswordController extends Controller
 
         $reset_password_status = Password::reset($credentials, function ($user, $password) {
             $user->password = bcrypt($password);
-            
+
             $user->save();
         });
-        
-        
+
+
         if ($reset_password_status == Password::INVALID_TOKEN) {
             return response()->json(["msg" => "Token obtenido inválido"], 400);
         }
 
         return response()->json(["msg" => "La contraseña se ha cambiado correctamente"]);
-       
-
     }
 }
