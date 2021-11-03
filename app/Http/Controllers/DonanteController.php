@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //use App\Models\Donantes;
-
+//enviar solicitud 
 class DonanteController extends Controller
 {
-    public function requestDonantessInfo(Request $request, $id)
+    public function requestDonantesInfo(Request $request, $id)
     {
         $credentials = $request->validate([
             'details' => 'required',

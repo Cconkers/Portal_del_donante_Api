@@ -27,6 +27,7 @@ class AdminController extends Controller
         $donante = User::where('documento', 'like', '%' . $credentials['documento'] . '%')->get();
         return $donante;
     }
+    //recibir respuesta 
     public function getPendingRequest()
     {
         $user_id = DB::table('requestDonantes')->where('status', true)->get(['user_id']);

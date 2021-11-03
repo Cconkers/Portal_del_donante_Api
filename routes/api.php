@@ -41,7 +41,7 @@ Route::post('/upload-file', [FileUploadController::class, 'fileUpload'])->name('
 //middleware esto dice que si no estas logeado no podras acceder a las siguientes rutas.
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/perfil', [DonanteController::class, 'show']);
-    Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonanteInfo']);
+    Route::post('/donantes/request/{id}', [DonanteController::class, 'requestDonantesInfo']);
     // Salir de usuario logeado.
     Route::get('/logout' , [Authcontroller::class, 'logout']);
 });

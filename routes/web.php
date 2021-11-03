@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Events\ComunicadoStatusEvent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
