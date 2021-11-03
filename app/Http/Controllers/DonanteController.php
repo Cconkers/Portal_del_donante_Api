@@ -25,6 +25,7 @@ class DonanteController extends Controller
             return response()->json(["msg" => "No autorizado."], 401);
         }
     }
+    
     public function confirmEmail(Request $request, $id)
     {
         $resource = User::findOrFail($id);

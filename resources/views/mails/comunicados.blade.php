@@ -1,6 +1,5 @@
 @component('mail::message')
-Hello ** NONAME **,  {{-- use double space for line break --}}
-Thank you for choosing Mailtrap!
+**COMUNICADO NUEVO**,  {{-- use double space for line break --}}
 
 Click below to start working right now
 @component('mail::button', ['url' => 'www.fundaciondonbosco.es' ])

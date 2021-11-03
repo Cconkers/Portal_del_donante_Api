@@ -9,9 +9,7 @@ class ComunicadosController extends Controller
     public function index(){
         return response()->json(Comunicado::all());
     }
-    public function show($id){
-
-        
+    public function show($id){      
         return response()->json([
             'data' => Comunicado::find($id)
         ], 200);
